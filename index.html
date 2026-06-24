@@ -2,38 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Time App</title>
+<title>Clock App</title>
 
 <link rel="manifest" href="manifest.json">
 
-<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#000000">
 
 <style>
 body{
-    margin:0;
-    background:black;
-    color:white;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    font-family:-apple-system,sans-serif;
+margin:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:black;
+color:white;
+font-family:-apple-system;
 }
 
 #time{
-    font-size:64px;
-    font-weight:700;
+font-size:70px;
+font-weight:700;
 }
 
 #date{
-    margin-top:10px;
-    font-size:22px;
-    opacity:.8;
+margin-top:10px;
+opacity:0.8;
+font-size:20px;
 }
 </style>
 </head>
@@ -44,36 +44,23 @@ body{
 <div id="date"></div>
 
 <script>
+function update(){
+const now=new Date();
 
-function updateClock(){
+document.getElementById("time").textContent =
+now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});
 
-    const now=new Date();
-
-    const time=now.toLocaleTimeString([],{
-        hour:"2-digit",
-        minute:"2-digit",
-        second:"2-digit"
-    });
-
-    const date=now.toLocaleDateString([],{
-        weekday:"long",
-        year:"numeric",
-        month:"long",
-        day:"numeric"
-    });
-
-    document.getElementById("time").textContent=time;
-    document.getElementById("date").textContent=date;
-
+document.getElementById("date").textContent =
+now.toLocaleDateString([], {weekday:"long", year:"numeric", month:"long", day:"numeric"});
 }
 
-updateClock();
-setInterval(updateClock,1000);
+update();
+setInterval(update,1000);
 
+// register SW
 if("serviceWorker" in navigator){
-    navigator.serviceWorker.register("sw.js");
+navigator.serviceWorker.register("sw.js");
 }
-
 </script>
 
 </body>

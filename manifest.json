@@ -1,5 +1,5 @@
 {
-"name":"Time App",
+"name":"Clock App",
 "short_name":"Clock",
 "start_url":"./",
 "display":"standalone",

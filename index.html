@@ -22,7 +22,7 @@ justify-content:center;
 align-items:center;
 background:black;
 color:white;
-font-family:-apple-system;
+font-family:-apple-system, sans-serif;
 }
 
 #time{
@@ -35,6 +35,12 @@ margin-top:10px;
 opacity:0.8;
 font-size:20px;
 }
+
+#version{
+margin-top:20px;
+font-size:14px;
+opacity:0.5;
+}
 </style>
 </head>
 
@@ -42,22 +48,32 @@ font-size:20px;
 
 <div id="time"></div>
 <div id="date"></div>
+<div id="version">v1.0.1</div>
 
 <script>
 function update(){
-const now=new Date();
+const now = new Date();
 
 document.getElementById("time").textContent =
-now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});
+now.toLocaleTimeString([], {
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit"
+});
 
 document.getElementById("date").textContent =
-now.toLocaleDateString([], {weekday:"long", year:"numeric", month:"long", day:"numeric"});
+now.toLocaleDateString([], {
+weekday:"long",
+year:"numeric",
+month:"long",
+day:"numeric"
+});
 }
 
 update();
-setInterval(update,1000);
+setInterval(update, 1000);
 
-// register SW
+// register service worker
 if("serviceWorker" in navigator){
 navigator.serviceWorker.register("sw.js");
 }
